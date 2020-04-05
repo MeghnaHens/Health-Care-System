@@ -4,16 +4,13 @@ import java.util.List;
 
 import com.cg.hcs.bean.*;
 public class ServiceImplementation implements ServiceInterface {
+	@Override
 	public void addCenter(String centerName,List<Test>testArray,List<DiagnosticCenter>centerArray) {
 		DiagnosticCenter d= new DiagnosticCenter(centerName,testArray);
 		centerArray.add(d);
 	}
 	
-	public void addTest(String testName,List<Test> testArray) {
-		Test t=new Test(testName);
-		testArray.add(t);
-	}
-	
+	@Override
 	public void removeCenter(String centerId,List<DiagnosticCenter>centerArray) {
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
@@ -24,6 +21,7 @@ public class ServiceImplementation implements ServiceInterface {
 		}
 	}
 	
+	@Override
 	public void removeTest(String testId,List<Test> testArray) {
 		for(int i=0;i<testArray.size();i++) {
 			Test test=testArray.get(i);
@@ -34,7 +32,21 @@ public class ServiceImplementation implements ServiceInterface {
 		}
 	}
 	
+	@Override
 	public boolean approveAppointment() {
 		return true;
+	}
+
+	@Override
+	public void addTestInCenter(List<DiagnosticCenter> centerArray, List<Test> testArray,String diagnostic,String testName) {
+		for(int i=0;i<centerArray.size();i++) {
+			DiagnosticCenter center=centerArray.get(i);
+			if((center.centerId).equals(diagnostic)) {
+				Test t=new Test(testName);
+				testArray.add(t);
+				center.setListOfTests(testArray);
+			}
+		}
+		
 	}
 }

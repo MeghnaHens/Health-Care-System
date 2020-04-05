@@ -13,4 +13,12 @@ public class ValidateImplementation{
 		if(!centerName.matches(pattern))
 			throw new DiagnosticCenterNameException();
 	}
+	
+	public static void DiagnosticCenterIdValidate(String centerId) throws DiagnosticCenterIdException{
+		String pattern="[D]{1}[1-9]{1,5}";
+		//String pattern="[A-Z1-9]{1,5}";
+		if(!centerId.matches(pattern))
+			throw new DiagnosticCenterIdException();
+	}
 }
+ 

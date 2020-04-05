@@ -85,7 +85,7 @@ public class MainDemo {
 								try {
 									ValidateImplementation.DiagnosticCenterValidate(centerName);
 									s.addCenter(centerName,testArray,centerArray);
-									System.out.println("After adding the center list is: ");
+									System.out.println("Diagnostic center added successfully..\nNew center list is: ");
 									for(DiagnosticCenter d:centerArray) {
 									System.out.println(d.centerId+" "+d.centerName);
 									}
@@ -96,17 +96,30 @@ public class MainDemo {
 								}
 								break;
 								
-							case 3:System.out.println("Enter the Test name to add in the list: ");
-								testName=kb.next();
+							case 3:System.out.println("Enter the diagnostic center id in which you want to add new test: ");
+							  
 								try {
-									ValidateImplementation.TestNameValidate(testName);
-									s.addTest(testName,testArray);
-									for(Test t:testArray) {
-										
-									System.out.println(t.testId+" "+t.testName);
-									}
+									    String diagnostic=kb.next();
+										ValidateImplementation.DiagnosticCenterIdValidate(diagnostic);
+										System.out.println("Enter the Test name to add: ");
+										testName=kb.next();
+										ValidateImplementation.TestNameValidate(testName);
+									
+										for(DiagnosticCenter d:centerArray) {
+										if(d.getCenterId().equals(diagnostic)) {
+											s.addTestInCenter(centerArray,testArray,diagnostic,testName);
+										}
+										else
+										{
+											System.out.println("Diagnostic center does not exist...");
+											break;
+										}
+								   }
 								}
 								catch(TestNameException e) {
+									System.out.println(e);
+								}
+								catch(DiagnosticCenterIdException e) {
 									System.out.println(e);
 								}
 								break;
