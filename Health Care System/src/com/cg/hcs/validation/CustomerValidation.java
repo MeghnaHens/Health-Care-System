@@ -3,11 +3,11 @@ package com.cg.hcs.validation;
 public class CustomerValidation {
 	public static boolean firstnameValidation(String firstname)
 	{
-		String pattern="[A-Z]{1}[a-z]{2,6}";
-		if(firstname.matches(pattern))
-			return true;
-		else
-		   return false;
+			String pattern="[A-Z]{1}[a-z]{2,6}";
+			if(firstname.matches(pattern))
+				return true;
+			else
+			   return false;
 	}
 	
 	public static boolean contactNumberValidate(String contactNo) {
