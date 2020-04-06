@@ -21,6 +21,7 @@ public class MainDemo {
 		Test t2=new Test("X-Ray");
 		Test t3=new Test("Urine Test");
 		Test t4=new Test("Blood Sugar Test");
+		Test t5=new Test("TSH test");
 		testArray.add(t1);
 		testArray.add(t2);
 		testArray.add(t3);
@@ -240,7 +241,7 @@ public class MainDemo {
 				usr.setContactNumber(Long.parseLong(contactNo));
 				usr.setEmailId(emailid);
 				usr.setUserPassword(password);
-				usr.setId();
+				usr.setUserId();
 				Customer.add(usr);
 				String UserName=firstname.substring(0,3)+lastname.substring(0,3);
 				System.out.println("your Username is "+UserName);

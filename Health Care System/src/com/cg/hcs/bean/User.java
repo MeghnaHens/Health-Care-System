@@ -27,7 +27,7 @@ public class User {
 	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId() {
 		this.userId = userId+(id++);
 	}
 	public String getUserFirstName() {
