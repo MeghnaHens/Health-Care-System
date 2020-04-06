@@ -7,6 +7,7 @@ public class User {
 	List<DiagnosticCenter> centerList;
 	String lastName,firstName,userPassword,userRole,emailId;
 	long contactNumber;
+	
 	public User(String firstName,String lastName,String userRole,String emailId,long contactNumber,String userPassword,List<DiagnosticCenter> centerList) 
 	{
 		this.firstName = firstName;
