@@ -9,9 +9,9 @@ public class User {
 	long contactNumber;
 	public User(String firstName,String lastName,String userRole,String emailId,long contactNumber,String userPassword,List<DiagnosticCenter> centerList) 
 	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userRole=userRole;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userRole = userRole;
 		this.emailId=emailId;
 		this.contactNumber=contactNumber;
 		this.userPassword=userPassword;

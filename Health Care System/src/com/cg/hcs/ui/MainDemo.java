@@ -234,7 +234,6 @@ public class MainDemo {
 			else
 				break;
 			}
-			  
 				System.out.println("Welcome to health care :) !!");
 				usr.setUserFirstName(firstname);
 				usr.setUserLastName(lastname);

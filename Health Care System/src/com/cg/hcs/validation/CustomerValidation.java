@@ -9,6 +9,7 @@ public class CustomerValidation {
 	else
 		return false;
 	}
+	
 	public static boolean contactNumberValidate(String contactNo) {
 		String pattern1 = "[0-9]{10}";
 		if(contactNo.matches(pattern1))
