@@ -16,6 +16,7 @@ public class CustomerValidation {
 			return true;
 		return false;
 	}
+	
 	public static boolean validatepassword(String password)
 	{
 		String pattern2= "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";

@@ -17,7 +17,6 @@ public class MainDemo {
 		User usr=new User();
 		ServiceImplementation s=new ServiceImplementation();
 		
-		
 		List<Test> testArray=new ArrayList<Test>();
 		Test t1=new Test("Blood Test");
 		Test t2=new Test("X-Ray");
