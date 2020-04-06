@@ -27,6 +27,7 @@ public class MainDemo {
 		testArray.add(t3);
 		testArray.add(t4);
 		
+		
 		List<DiagnosticCenter> centerArray=new ArrayList<DiagnosticCenter>();
 		DiagnosticCenter d1=new DiagnosticCenter("Gariahat",testArray);
 		DiagnosticCenter d2=new DiagnosticCenter("Kestopur",testArray);
