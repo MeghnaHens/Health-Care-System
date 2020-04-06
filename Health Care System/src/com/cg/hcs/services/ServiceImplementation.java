@@ -20,7 +20,7 @@ public class ServiceImplementation implements ServiceInterface {
 			}
 		}
 	}
-	
+	 
 	@Override
 	public void removeTest(String testId,List<Test> testArray) {
 		for(int i=0;i<testArray.size();i++) {
@@ -35,6 +35,24 @@ public class ServiceImplementation implements ServiceInterface {
 	@Override
 	public boolean approveAppointment() {
 		return true;
+	}
+	
+	@Override
+	public void Register(List<User> customer, String password)
+	{
+	for(int i=0;i<customer.size();i++) {
+		User usr=customer.get(i);
+	     if (usr.getUserPassword().equals(password)) 
+	        {
+	            System.out.println("Welcome!!!");
+	        }
+	     else
+	     {
+	    	 System.out.println("your account doesn't exists please register first");
+	     }
+	    }
+	    
+	    
 	}
 
 	@Override
