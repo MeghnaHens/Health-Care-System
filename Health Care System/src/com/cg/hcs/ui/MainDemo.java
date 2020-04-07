@@ -62,7 +62,6 @@ public class MainDemo {
 				adminHash.put(u3,"Kari123");
 				adminHash.put(u4,"Niki123");
 				
-				
 				while(true) {
 				System.out.println("enter User Id: ");
 				String id=kb.next();
@@ -193,14 +192,26 @@ public class MainDemo {
 			   System.out.println("enter your first name:");
 			 firstname=kb.next();
 			
-			boolean firstnameflag=CustomerValidation.firstnameValidation(firstname);
+			boolean firstnameflag=CustomerValidation.nameValidation(firstname);
 			if(!firstnameflag)
 				System.out.println("first letter should be capital!");
 			else
 				break;
 			}
-			System.out.println("enter your last name:");
-			lastname=kb.next();
+			
+			
+			while (true)
+			{
+				System.out.println("enter your last name:");
+				lastname=kb.next();
+			
+			boolean lastnameflag=CustomerValidation.nameValidation(firstname);
+			if(!lastnameflag)
+				System.out.println("first letter should be capital!");
+			else
+				break;
+			}
+			
 			while(true)
 			{
 			System.out.println("enter your email id:");

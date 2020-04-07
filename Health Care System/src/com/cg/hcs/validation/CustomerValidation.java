@@ -1,7 +1,7 @@
 package com.cg.hcs.validation;
 
 public class CustomerValidation {
-	public static boolean firstnameValidation(String firstname)
+	public static boolean nameValidation(String firstname)
 	{
 			String pattern="[A-Z]{1}[a-z]{2,6}";
 			if(firstname.matches(pattern))
