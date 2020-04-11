@@ -1,4 +1,6 @@
 package com.cg.hcs.ui;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,16 +8,19 @@ import java.util.Scanner;
 import com.cg.hcs.bean.*;
 import com.cg.hcs.services.*;
 import com.cg.hcs.validation.*;
+
+
 import com.cg.hcs.exception.*;
 
 public class MainDemo {
-	public static void main(String[] args) {
+	public static void main(String[] args, List<DiagnosticCenter> date) {
 		
 		Scanner kb=new Scanner(System.in);
 		String testName,centerName,firstname,lastname,password,emailid,contactNo;
 		ArrayList<User> Customer=new ArrayList<User>();
 		User usr=new User();
 		ServiceImplementation s=new ServiceImplementation();
+		AppointmentInterfaceImplementation ai=new AppointmentInterfaceImplementation();
 		
 		List<Test> testArray=new ArrayList<Test>();
 		Test t1=new Test("Blood Test");
@@ -273,7 +278,47 @@ public class MainDemo {
 			if(Customer.contains(Id)&&pass.contentEquals(usr.getUserPassword()))
 					{
 				System.out.println(" Congratulations, you successfully logged in !!");
-					}else {
+					
+			System.out.println("enter 1 for book an appointment\n  enter 2 for checking your appointment status:");
+			int op=kb.nextInt();
+			
+			if(op==1)
+			{
+				
+				System.out.println("Enter your convenient Date in the format: dd-MM-yyyy ");
+				
+					String date1=kb.next();
+									
+					//System.out.println("Enter your convenient time (hh:mm):");
+					 //String time = kb.next();
+
+					System.out.println("Here are the list of diagnostic center:");
+					System.out.println(centerArray);
+												
+					System.out.println("enter the diagnostic center name:");
+					String centername=kb.next();
+					
+					System.out.println("here are the list of test the "+centername+" center provides:");
+					System.out.println(testArray);
+					
+					System.out.println("enter the test name from the above options");
+					System.out.println("Remember you can't choose more than one test at a time!!\n");
+				
+					String testname=kb.next();
+					ai.makeAppointment(usr,centername,testname,centerArray,testArray,date1);
+
+			System.out.println("your form is submitted");
+			}
+			
+			
+			if(op==2)
+			{
+				System.out.println("provide your appointment details:");
+			}
+			
+					}
+
+			else {
 						System.out.println("Please fill correct username and password.....");
 					}
 			
