@@ -1,24 +1,26 @@
 package com.cg.hcs.bean;
+
 import java.util.List;
 
-public class User {
+public class Admin {
 	static int id=1;
 	public String userId="Ab";
 	List<DiagnosticCenter> centerList;
-	String lastName,firstName,userPassword,userRole,emailId;
+	String lastName,firstName,userPassword,userRole,emailId,userName;
 	long contactNumber;
 	
-	public User(String firstName,String lastName,String userRole,String emailId,long contactNumber,String userPassword) 
+	public Admin(String firstName,String lastName,String userRole,String emailId,long contactNumber,String userPassword,List<DiagnosticCenter> centerList) 
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.userName=firstName+lastName;
 		this.userRole = userRole;
 		this.emailId=emailId;
 		this.contactNumber = contactNumber;
 		this.userPassword = userPassword;
-		
+		this.centerList=centerList;
 	}
-	public User() {
+	public Admin() {
 		
 	}
 	
@@ -61,5 +63,8 @@ public class User {
 	}
 	public void setContactNumber(long contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+	public String getUserName(){
+		return userName;
 	}
 }

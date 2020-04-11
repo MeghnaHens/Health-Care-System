@@ -1,5 +1,8 @@
 package com.cg.hcs.dao;
 
-public class CustomerDao {
+import com.cg.hcs.bean.*;
 
+public abstract class CustomerDao {
+	
+	public abstract void addCustomer(User customer);
 }

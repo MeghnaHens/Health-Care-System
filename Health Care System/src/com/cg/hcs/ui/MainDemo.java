@@ -1,100 +1,59 @@
 package com.cg.hcs.ui;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 import com.cg.hcs.bean.*;
+import com.cg.hcs.dao.*;
 import com.cg.hcs.services.*;
 import com.cg.hcs.validation.*;
-
-
 import com.cg.hcs.exception.*;
 
 public class MainDemo {
-	public static void main(String[] args, List<DiagnosticCenter> date) {
+	public static void main(String[] args) {
 		
+		boolean login = false;
 		Scanner kb=new Scanner(System.in);
-		String testName,centerName,firstname,lastname,password,emailid,contactNo;
-		ArrayList<User> Customer=new ArrayList<User>();
+		String testName,centerName,firstName,lastName,password,emailid,contactNo;
+		
 		User usr=new User();
+		Admin adm=new Admin();
 		ServiceImplementation s=new ServiceImplementation();
 		AppointmentInterfaceImplementation ai=new AppointmentInterfaceImplementation();
-		
-		List<Test> testArray=new ArrayList<Test>();
-		Test t1=new Test("Blood Test");
-		Test t2=new Test("X-Ray");
-		Test t3=new Test("Urine Test");
-		Test t4=new Test("Blood Sugar Test");
-		Test t5=new Test("TSH test");
-		testArray.add(t1);
-		testArray.add(t2);
-		testArray.add(t3);
-		testArray.add(t4);
-		
-		
-		List<DiagnosticCenter> centerArray=new ArrayList<DiagnosticCenter>();
-		DiagnosticCenter d1=new DiagnosticCenter("Gariahat",testArray);
-		DiagnosticCenter d2=new DiagnosticCenter("Kestopur",testArray);
-		DiagnosticCenter d3=new DiagnosticCenter("Beleghata",testArray);
-		DiagnosticCenter d4=new DiagnosticCenter("Joramandir",testArray);
-		centerArray.add(d1);
-		centerArray.add(d2);
-		centerArray.add(d3);
-		centerArray.add(d4);
-		DiagnosticCenter dc=new DiagnosticCenter();
-		dc.setListOfTests(testArray);
+		CustomerDaoImpl cd=new CustomerDaoImpl();
+		TestDaoImpl td=new TestDaoImpl();
+		td.addPreAssignedTest();		
+		DiagnosticCenterDaoImpl dc=new DiagnosticCenterDaoImpl();
+		dc.addExistingCenter();
 		
 		while(true)
 		{
 			System.out.println("Log in as:\n1.Admin\n2.Customer");
-			int log= kb.nextInt();
-			if(log==1)
+			int number= kb.nextInt();
+			if(number==1)
 			{
-				List<User> admin=new ArrayList<User>();
-				HashMap<User, String> adminHash = new HashMap<>();
-				User u1=new User("Meghna","Hens","Admin","meghna@gmail.com",8967330644L,"m@1998",centerArray);
-				User u2=new User("Neha","Biswakarma","Admin","neha@gmail.com",8013805556L,"n@1996",centerArray);
-				User u3=new User("Karishma","Upadhyay","Admin","karishma@gmail.com",8109993685L,"k@1998",centerArray);
-				User u4=new User("Nikhil","Gupta","Admin","nikhil@gmail.com",9768519113L,"ni@1998",centerArray);
-				admin.add(u1);
-				admin.add(u2);
-				admin.add(u3);
-				admin.add(u4);
-				adminHash.put(u1,"Megx123");
-				adminHash.put(u2,"Neha123");
-				adminHash.put(u3,"Kari123");
-				adminHash.put(u4,"Niki123");
+				AdminDaoImpl ad=new AdminDaoImpl();
+				ad.addAdmin();
 				
 				while(true) {
-				System.out.println("enter User Id: ");
+				System.out.println("Enter User Id: ");
 				String id=kb.next();
 				System.out.println("Enter Password: ");
 				String pass=kb.next();
-				
-				if(adminHash.containsValue(id) && pass.equals(u1.getUserPassword()))
-				{
-					System.out.println("Welcome Admin");
-				}
-				else if(adminHash.containsValue(id) && pass.equals(u2.getUserPassword()))
-				{
-					System.out.println("Welcome Admin");
-				}
-				else if(adminHash.containsValue(id) && pass.equals(u3.getUserPassword()))
-				{
-					System.out.println("Welcome Admin");
-				}
-				else if(adminHash.containsValue(id) && pass.equals(u4.getUserPassword()))
-				{
-					System.out.println("Welcome Admin");
-				}
-				else
-				{
-					System.out.println("Enter Correct User Name And Password..");
-					break;
-				}
-				
+						
+						for(Admin a: ad.getAdminList()) {
+							if(a.getUserName().equals(id)) {
+								login=s.login(adm, id, pass, ad.getAdminList(), ad.getAdminHash());
+								break;
+							}
+						}
+						if(login==true)
+						{
+							System.out.println("Welcome Admin "+id);
+						}
+						else
+						{
+							System.out.println("Enter correct User Name and Password..!");
+							break;
+						}
+					
 			while(true)
 			{
 			System.out.println("\n1.Show List of all diagnostic centers along with the tests done\n2.Add Diagnostic Center\n3.Add Test\n4.Remove Diagnostic Center\n5.Remove Test\n6.Exit");
@@ -102,23 +61,24 @@ public class MainDemo {
 			switch(option) 
 				{
 							case 1:	System.out.println("Center names with Test names are: ");
-							for(DiagnosticCenter d:centerArray) {
-								System.out.println("Center Id: "+d.centerId+" Center name: "+d.centerName+"\nThe tests done here are: ");
-								for(Test t:testArray) {
+							for(int i=0;i<dc.getCenterList().size();i++) {
+								DiagnosticCenter d=dc.getCenterList().get(i);
+								System.out.println("\nCenter Id: "+d.centerId+" Center name: "+d.centerName+"\nThe tests done here are: ");
+				
+								for(Test t:d.getListOfTests()) {
 									
 									System.out.println(t.testId+" "+t.testName);
 									}
-								System.out.println("\n");
 							}
 							break;
 								
-							case 2:System.out.println("Enter the Diagnostic center to add in the list:  ");
+							case 2:System.out.println("Enter the name of Diagnostic center to add in the list:  ");
 								centerName=kb.next();
 								try {
 									ValidateImplementation.DiagnosticCenterValidate(centerName);
-									s.addCenter(centerName,testArray,centerArray);
+									s.addCenter(centerName,td.getTestList(),dc.getCenterList());
 									System.out.println("Diagnostic center added successfully..\nNew center list is: ");
-									for(DiagnosticCenter d:centerArray) {
+									for(DiagnosticCenter d : dc.getCenterList()) {
 									System.out.println(d.centerId+" "+d.centerName);
 									}
 									break;
@@ -136,17 +96,23 @@ public class MainDemo {
 										System.out.println("Enter the Test name to add: ");
 										testName=kb.next();
 										ValidateImplementation.TestNameValidate(testName);
-									
-										for(DiagnosticCenter d:centerArray) {
-										if(d.getCenterId().equals(diagnostic)) {
-											s.addTestInCenter(centerArray,testArray,diagnostic,testName);
+										
+										if(s.isDiagnosticCenterPresent(diagnostic,dc.getCenterList())) {
+											s.addTestInCenter(dc.getCenterList(),diagnostic,testName);
+											
+											for(int i=0;i<dc.getCenterList().size();i++)
+											{
+												DiagnosticCenter center=dc.getCenterList().get(i);
+												if((center.centerId).equals(diagnostic)) {
+													System.out.println("\nCenter Id: "+center.centerId+" Center name: "+center.centerName+"\nThe tests done here are: ");
+													for(Test te:center.getListOfTests()){
+														System.out.println(te.testId+" "+te.testName);
+														}
+												}
+											}
 										}
 										else
-										{
-											System.out.println("Diagnostic center does not exist...");
-											break;
-										}
-								   }
+											System.out.println("Diagnostic center "+diagnostic+" is not present");
 								}
 								catch(TestNameException e) {
 									System.out.println(e);
@@ -158,23 +124,49 @@ public class MainDemo {
 								
 							case 4:System.out.println("Enter the Center Id to remove the test: ");
 						       String centerId=kb.next();
-						       s.removeCenter(centerId, centerArray);
+						       s.removeCenter(centerId, dc.getCenterList());
 						       System.out.println("After removing the center list is: ");
-						       for(DiagnosticCenter d:centerArray) {
+						       for(DiagnosticCenter d : dc.getCenterList()) {
 									System.out.println(d.centerId+" "+d.centerName);
 								}
 								break;
 								
-							case 5:System.out.println("Enter the test Id to remove the test: ");
-							       String testId=kb.next();
-							       s.removeTest(testId, testArray);
-							       System.out.println("After removing the test list is: ");
-							       for(Test t:testArray) {
-										System.out.println(t.testId+" "+t.testName);
-									}
+							case 5:System.out.println("Enter the diagnostic center id from which you want to remove test: ");
+							  
+								try {
+									    String diagnostic=kb.next();
+										ValidateImplementation.DiagnosticCenterIdValidate(diagnostic);
+										System.out.println("Enter the Test name to remove: ");
+										testName=kb.next();
+										kb.nextLine();
+										ValidateImplementation.TestNameValidate(testName);
+										
+										if((s.isDiagnosticCenterPresent(diagnostic,dc.getCenterList()))) { 
+											s.removeTestFromCenter(dc.getCenterList(),diagnostic,testName);
+											 System.out.println("After removing the test list is: ");
+											for(int i=0;i<dc.getCenterList().size();i++)
+											{
+												DiagnosticCenter center=dc.getCenterList().get(i);
+												if((center.centerId).equals(diagnostic)) {
+													System.out.println("\nCenter Id: "+center.centerId+" Center name: "+center.centerName+"\nThe tests done here are: ");
+													for(Test te:center.getListOfTests()){
+														System.out.println(te.testId+" "+te.testName);
+														}
+												}
+											}
+										}
+										else
+											System.out.println("Diagnostic center or test does not present");
+								}
+								catch(TestNameException e) {
+									System.out.println(e);
+								}
+								catch(DiagnosticCenterIdException e) {
+									System.out.println(e);
+								}
 								break;
 								
-							case 6:System.out.println("Exited...");
+							case 6:System.out.println("Exit...");
 							       System.exit(0);
 								
 							default: System.out.println("Please enter correct option...");
@@ -183,7 +175,7 @@ public class MainDemo {
 				  }
 				}
 			}
-			else if(log==2)
+			else if(number==2)
 			{
 				while(true)
 				 {
@@ -194,12 +186,12 @@ public class MainDemo {
 		{
 			while (true)
 			{
-			   System.out.println("enter your first name:");
-			 firstname=kb.next();
+			   System.out.println("Enter your first name:");
+			 firstName=kb.next();
 			
-			boolean firstnameflag=CustomerValidation.nameValidation(firstname);
-			if(!firstnameflag)
-				System.out.println("first letter should be capital!");
+			boolean firstNameFlag=CustomerValidation.nameValidation(firstName);
+			if(!firstNameFlag)
+				System.out.println("First letter should be capital!");
 			else
 				break;
 			}
@@ -207,43 +199,43 @@ public class MainDemo {
 			
 			while (true)
 			{
-				System.out.println("enter your last name:");
-				lastname=kb.next();
+				System.out.println("Enter your last name:");
+				lastName=kb.next();
 			
-			boolean lastnameflag=CustomerValidation.nameValidation(firstname);
-			if(!lastnameflag)
-				System.out.println("first letter should be capital!");
+			boolean lastNameFlag=CustomerValidation.nameValidation(lastName);
+			if(!lastNameFlag)
+				System.out.println("First letter should be capital!");
 			else
 				break;
 			}
 			
 			while(true)
 			{
-			System.out.println("enter your email id:");
+			System.out.println("Enter your email id:");
 			emailid=kb.next();
 			
 			
 			boolean emailFlag=CustomerValidation.validateeamilId(emailid);
 			if(!emailFlag)
-				System.out.println("enter a valid email account!");
+				System.out.println("Enter a valid email account!");
 			else 
 				break;
 			}
 			while(true)
 			{
-				System.out.println("enter your password:");
+				System.out.println("Enter your password:");
 				password=kb.next();
 				
 				boolean passFlag=CustomerValidation.validatepassword(password);
 				if(!passFlag)
-					System.out.println("password should be equal or greater than 6 must conatain uppercase and lowercase characters!");
+					System.out.println("Password should be equal or greater than 6 must conatain uppercase and lowercase characters!");
 				else
 					break;
 			}
 			
 			while(true)
 			{
-				System.out.println("enter your contactNo:");
+				System.out.println("Enter your contactNo:");
 				contactNo=kb.next();
 			
 			boolean contactNoFlag=CustomerValidation.contactNumberValidate(contactNo);
@@ -253,74 +245,66 @@ public class MainDemo {
 				break;
 			}
 				System.out.println("Welcome to health care :) !!");
-				usr.setUserFirstName(firstname);
-				usr.setUserLastName(lastname);
-				usr.setContactNumber(Long.parseLong(contactNo));
-				usr.setEmailId(emailid);
-				usr.setUserPassword(password);
-				usr.setUserId();
-				Customer.add(usr);
-				String UserName=firstname.substring(0,3)+lastname.substring(0,3);
-				System.out.println("your Username is "+UserName);
+				User user1=new User(firstName,lastName,"Customer",emailid,Long.parseLong(contactNo),password);
+				cd.addCustomer(user1);
+				
+				String UserName=firstName.substring(0,3)+lastName.substring(0,4);
+				System.out.println("Your Username is "+UserName);
 				String userId=usr.getUserId();
-				System.out.println("your UserId is "+userId);
+				System.out.println("Your UserId is "+userId);	
 		}
 			
 		else if(opt==2)
 		{
 			
-			System.out.println("enter your username:");
+			System.out.println("Enter your username:");
 			String Id=kb.next();
-			System.out.println("enter your password:");
+			System.out.println("Enter your password:");
 			String pass=kb.next();
 			
-			s.Register(Customer, pass);
-			if(Customer.contains(Id)&&pass.contentEquals(usr.getUserPassword()))
+			s.Register(cd.getCustomerList(), pass);
+			if(cd.getCustomerList().contains(Id)&&pass.contentEquals(usr.getUserPassword())) {
+					System.out.println("Congratulations, you successfully logged in !!");
+					System.out.println("enter 1 for making an appointment\n enter 2 for checking your appointment status:");
+					int op=kb.nextInt();
+					
+					if(op==1)
 					{
-				System.out.println(" Congratulations, you successfully logged in !!");
-					
-			System.out.println("enter 1 for book an appointment\n  enter 2 for checking your appointment status:");
-			int op=kb.nextInt();
-			
-			if(op==1)
-			{
-				
-				System.out.println("Enter your convenient Date in the format: dd-MM-yyyy ");
-				
-					String date1=kb.next();
-									
-					//System.out.println("Enter your convenient time (hh:mm):");
-					 //String time = kb.next();
+						
+						System.out.println("Enter your convenient Date in the format: dd-MM-yyyy ");
+						
+							String date1=kb.next();
+											
+							//System.out.println("Enter your convenient time (hh:mm):");
+							 //String time = kb.next();
 
-					System.out.println("Here are the list of diagnostic center:");
-					System.out.println(centerArray);
-												
-					System.out.println("enter the diagnostic center name:");
-					String centername=kb.next();
-					
-					System.out.println("here are the list of test the "+centername+" center provides:");
-					System.out.println(testArray);
-					
-					System.out.println("enter the test name from the above options");
-					System.out.println("Remember you can't choose more than one test at a time!!\n");
-				
-					String testname=kb.next();
-					ai.makeAppointment(usr,centername,testname,centerArray,testArray,date1);
+							System.out.println("Here are the list of diagnostic center:");
+							System.out.println(dc.getCenterList());
+														
+							System.out.println("enter the diagnostic center name:");
+							String centername=kb.next();
+							
+							System.out.println("here are the list of test the "+centername+" center provides:");
+							System.out.println(td.getTestList());
+							
+							System.out.println("enter the test name from the above options");
+							System.out.println("Remember you can't choose more than one test at a time!!\n");
+						
+							String testname=kb.next();
+							ai.makeAppointment(usr,centername,testname,dc.getCenterList(),td.getTestList(),date1);
 
-			System.out.println("your form is submitted");
-			}
-			
-			
-			if(op==2)
-			{
-				System.out.println("provide your appointment details:");
-			}
-			
+					System.out.println("your form is submitted");
 					}
-
-			else {
-						System.out.println("Please fill correct username and password.....");
+					
+					
+					if(op==2)
+					{
+						System.out.println("provide your appointment details:");
 					}
+					
+			}			
+			else 
+				System.out.println("Please fill correct username and password....");
 			
 		}	
 		}

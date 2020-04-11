@@ -10,4 +10,11 @@ public class Test {
 		this.testName=testName;
 		this.id=this.id++;
 	}
+	
+	Test(){
+		
+	}
+	public String getTestName() {
+		return testName;
+	}
 }

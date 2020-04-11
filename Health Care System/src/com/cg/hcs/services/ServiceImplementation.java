@@ -1,7 +1,6 @@
 package com.cg.hcs.services;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-
 import com.cg.hcs.bean.*;
 public class ServiceImplementation implements ServiceInterface {
 	@Override
@@ -17,17 +16,6 @@ public class ServiceImplementation implements ServiceInterface {
 			if((center.centerId).equals(centerId)) {
 				System.out.println("Diagnostic Center to be removed is: "+center.centerId+"->"+center.centerName);
 				centerArray.remove(i);
-			}
-		}
-	}
-	 
-	@Override
-	public void removeTest(String testId,List<Test> testArray) {
-		for(int i=0;i<testArray.size();i++) {
-			Test test=testArray.get(i);
-			if((test.testId).equals(testId)) {
-				System.out.println("Test to be removed is: "+test.testId+"->"+test.testName);
-				testArray.remove(i);
 			}
 		}
 	}
@@ -50,21 +38,57 @@ public class ServiceImplementation implements ServiceInterface {
 	     {
 	    	 System.out.println("your account doesn't exists please register first");
 	     }
-	    }
-	    
-	    
+	    } 
 	}
-
+	
 	@Override
-	public void addTestInCenter(List<DiagnosticCenter> centerArray, List<Test> testArray,String diagnostic,String testName) {
+	public boolean isDiagnosticCenterPresent(String diagnostic,List<DiagnosticCenter> centerArray) {
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
-			if((center.centerId).equals(diagnostic)) {
-				Test t=new Test(testName);
-				testArray.add(t);
-				center.setListOfTests(testArray);
+			if((center.getCenterId()).equals(diagnostic))
+			{
+				return true;
 			}
 		}
-		
+		return false;
+	}
+	
+	@Override
+	public boolean login(Admin adm,String id,String pass,List<Admin> adminList,HashMap<Admin,String> adminHash) {  
+		if(adminHash.containsValue(pass)) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	@Override
+	public void addTestInCenter(List<DiagnosticCenter> centerArray,String diagnostic,String testName) {
+		for(int i=0;i<centerArray.size();i++) {
+			DiagnosticCenter center=centerArray.get(i);
+			if((center.getCenterId()).equals(diagnostic))
+			{
+				Test t=new Test(testName);
+				//testArray.add(t);
+				//center.setListOfTests(testArray);
+				//System.out.println(center.getListOfTests());
+				center.getListOfTests().add(t);
+		    }
+		   }
+		}
+	@Override
+	public void removeTestFromCenter(List<DiagnosticCenter> centerArray,String diagnostic,String testName) {
+		for(int i=0;i<centerArray.size();i++) {
+			DiagnosticCenter center=centerArray.get(i);
+			if((center.getCenterId()).equals(diagnostic))
+			{
+				for(int j=0;j<center.getListOfTests().size();j++) {
+					Test t=center.getListOfTests().get(j);
+					if(t.getTestName().equalsIgnoreCase(testName)) {
+						center.getListOfTests().remove(t);
+					}
+		    }
+		   }
+	  }
 	}
 }

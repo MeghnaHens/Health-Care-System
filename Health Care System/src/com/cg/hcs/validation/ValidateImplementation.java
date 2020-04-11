@@ -16,7 +16,6 @@ public class ValidateImplementation{
 	
 	public static void DiagnosticCenterIdValidate(String centerId) throws DiagnosticCenterIdException{
 		String pattern="[D]{1}[1-9]{1,5}";
-		//String pattern="[A-Z1-9]{1,5}";
 		if(!centerId.matches(pattern))
 			throw new DiagnosticCenterIdException();
 	}
