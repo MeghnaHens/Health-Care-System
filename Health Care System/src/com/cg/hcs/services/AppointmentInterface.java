@@ -9,5 +9,5 @@ import com.cg.hcs.bean.User;
 
 public interface AppointmentInterface {
 
-	public abstract void makeAppointment(User user,String centerName,String testName,List<DiagnosticCenter>centerArray,List<Test>testArray,String date);
+	public abstract void makeAppointment(User user,String centerName,String testName,List<DiagnosticCenter>centerArray,List<Test>testArray,String date,String time);
 }

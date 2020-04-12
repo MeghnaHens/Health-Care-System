@@ -12,7 +12,7 @@ import com.cg.hcs.bean.User;
 
 public class AppointmentInterfaceImplementation {
 
-	public void makeAppointment(User user,String centerName,String testName,List<DiagnosticCenter>centerArray,List<Test>testArray,String date)
+	public void makeAppointment(User user,String centerName,String testName,List<DiagnosticCenter>centerArray,List<Test>testArray,String date,String time)
 	{
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
@@ -30,6 +30,8 @@ public class AppointmentInterfaceImplementation {
 		try {
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			sdf.parse(date);
+			SimpleDateFormat sdf1=new SimpleDateFormat("hh:mm");
+			sdf1.parse(date);
 	        }
 	catch(Exception e)
 	{

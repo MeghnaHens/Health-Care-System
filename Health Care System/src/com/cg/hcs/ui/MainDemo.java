@@ -1,6 +1,7 @@
 package com.cg.hcs.ui;
 import java.util.Scanner;
 import com.cg.hcs.bean.*;
+import com.cg.hcs.customerException.*;
 import com.cg.hcs.dao.*;
 import com.cg.hcs.services.*;
 import com.cg.hcs.validation.*;
@@ -11,7 +12,7 @@ public class MainDemo {
 		
 		boolean login = false;
 		Scanner kb=new Scanner(System.in);
-		String testName,centerName,firstName,lastName,password,emailid,contactNo;
+		String testName,centerName,firstname,lastname,password,emailid,contactNo;
 		
 		User usr=new User();
 		Admin adm=new Admin();
@@ -27,26 +28,26 @@ public class MainDemo {
 		while(true)
 		{
 			while(true) {
-			System.out.println("Log in as:\n1.Admin \n2.Customer");
-			String number= kb.next();
-				try {
-					ValidateImplementation.optionChosenValidate(number);
-				}
-				catch(WrongOptionChosenException e) {
-					System.out.println(e);
-					break;
-				}	
-			if(Integer.parseInt(number)==1)
-			{
-				AdminDaoImpl ad=new AdminDaoImpl();
-				ad.addAdmin();
-				
-				while(true) {
-				System.out.println("Enter User : ");
-				String id=kb.next();
-				System.out.println("Enter Password: ");
-				String pass=kb.next();
-						
+				System.out.println("Log in as:\n1.Admin \n2.Customer");
+				String number= kb.next();
+					try {
+						ValidateImplementation.optionChosenValidate(number);
+					}
+					catch(WrongOptionChosenException e) {
+						System.out.println(e);
+						break;
+					}	
+				if(Integer.parseInt(number)==1)
+				{
+					AdminDaoImpl ad=new AdminDaoImpl();
+					ad.addAdmin();
+					
+					while(true) {
+					System.out.println("Enter User : ");
+					String id=kb.next();
+					System.out.println("Enter Password: ");
+					String pass=kb.next();
+							
 						for(Admin a: ad.getAdminList()) {
 							if(a.getUserName().equals(id)) {
 								login=s.login(adm, id, pass, ad.getAdminList(), ad.getAdminHash());
@@ -214,144 +215,130 @@ public class MainDemo {
 			{
 				while(true)
 				 {
-				System.out.println("Press 1 for REGISTER\nPress 2 for LOGIN");
+				System.out.println("Press 1 for REGISTER \n Press 2 for LOGIN");
 				int opt=kb.nextInt();
 				
 		if(opt==1)
 		{
-			while (true)
-			{
-			   System.out.println("enter your first name:");
-			 firstName=kb.next();
-			
-			boolean firstnameflag=CustomerValidation.nameValidation(firstName);
-			if(!firstnameflag)
-				System.out.println("first letter should be capital!");
-			else
+			while(true) {  try{
+				System.out.println("enter your first name:");
+				firstname=kb.next();
+				CustomerValidation.fnameValidation(firstname);
 				break;
 			}
-			
-			
-			while (true)
-			{
-				System.out.println("enter your last name:");
-				lastName=kb.next();
-			
-			boolean lastnameflag=CustomerValidation.nameValidation(firstName);
-			if(!lastnameflag)
-				System.out.println("first letter should be capital!");
-			else
-				break;
+				catch(FirstNameException e1)
+				{
+					System.out.println(e1.getMessage());
+				}
 			}
 			
-			while(true)
-			{
-			System.out.println("enter your email id:");
-			emailid=kb.next();
-			
-			
-			boolean emailFlag=CustomerValidation.validateeamilId(emailid);
-			if(!emailFlag)
-				System.out.println("enter a valid email account!");
-			else 
-				break;
+			while(true) {	
+				try {
+				 System.out.println("enter your last name:");
+			    lastname=kb.next();
+			    CustomerValidation.lnameValidation(lastname);
+			    break;
+				}
+				catch(LastNameException e1)
+				{
+					System.out.println(e1.getMessage());
+				}
 			}
-			while(true)
-			{
-				System.out.println("enter your password:");
-				password=kb.next();
+			while(true) {
+				try {
 				
-				boolean passFlag=CustomerValidation.validatepassword(password);
-				if(!passFlag)
-					System.out.println("password should be equal or greater than 6 must conatain uppercase and lowercase characters!");
-				else
-					break;
+				System.out.println("enter your email id:");
+				 emailid=kb.next();
+				CustomerValidation.validateeamilId(emailid);
+				break;
+				}
+				
+				catch(EmailIdException e1)
+				{
+					System.out.println(e1.getMessage());
+				}
 			}
-			
-			while(true)
-			{
+			while(true) {	try {
+				
+				System.out.println("enter your password:");
+				 password=kb.next();
+				CustomerValidation.validatepassword(password);
+				break;
+			}
+				catch(PasswordException e1)
+				{
+					System.out.println(e1.getMessage());
+				}
+			}
+			while(true) { try {
 				System.out.println("enter your contactNo:");
 				contactNo=kb.next();
-			
-			boolean contactNoFlag=CustomerValidation.contactNumberValidate(contactNo);
-			if(!contactNoFlag)
-				System.out.println("Number should be of 10 digits!");
-			else
+				CustomerValidation.contactNumberValidate(contactNo);
 				break;
 			}
-				System.out.println("Welcome to health care :) !!");
-				usr.setUserFirstName(firstName);
-				usr.setUserLastName(lastName);
-				usr.setContactNumber(Long.parseLong(contactNo));
-				usr.setEmailId(emailid);
-				usr.setUserPassword(password);
-				usr.setUserId();
-				cd.getCustomerList().add(usr);
-				String UserName=firstName.substring(0,3)+lastName.substring(0,3);
-				System.out.println("your Username is "+UserName);
-				String userId=usr.getUserId();
-				System.out.println("your UserId is "+userId);
+	      
+			
+			catch(ContactNumberException e1)
+			{
+				System.out.println(e1.getMessage());
+			}
+			}	
 		}
 			
 		else if(opt==2)
 		{
 			
-			System.out.println("enter your username:");
+			System.out.println("Enter your username:");
 			String Id=kb.next();
-			System.out.println("enter your password:");
+			System.out.println("Enter your password:");
 			String pass=kb.next();
 			
 			c.Register(cd.getCustomerList(), pass);
-			if(cd.getCustomerList().contains(Id)&&pass.contentEquals(usr.getUserPassword()))
+			if(cd.getCustomerList().contains(Id)&&pass.contentEquals(usr.getUserPassword())) {
+					System.out.println("Congratulations, you successfully logged in !!");
+					System.out.println("enter 1 for making an appointment\n enter 2 for checking your appointment status:");
+					int op=kb.nextInt();
+					
+					if(op==1)
 					{
-				System.out.println(" Congratulations, you successfully logged in !!");
-					
-			System.out.println("enter 1 for book an appointment\n  enter 2 for checking your appointment status:");
-			int op=kb.nextInt();
-			
-			if(op==1)
-			{
-				
-				System.out.println("Enter your convenient Date in the format: dd-MM-yyyy ");
-				
-					String date1=kb.next();
-									
-					//System.out.println("Enter your convenient time (hh:mm):");
-					 //String time = kb.next();
+							System.out.println("Here are the list of diagnostic center:");
+							System.out.println(dc.getCenterList());
+														
+							System.out.println("enter the diagnostic center name:");
+							String centername=kb.next();
+							
+							System.out.println("here are the list of test the "+centername+" center provides:");
+							System.out.println(td.getTestList());
+							
+							System.out.println("enter the test name from the above options");
+							System.out.println("Remember you can't choose more than one test at a time!!\n");
+						
+							String testname=kb.next();
+							
+							System.out.println("Enter your convenient Date in the format: dd-MM-yyyy ");
+							String date1=kb.next();
+							
+							System.out.println("Enter your convenient time (hh:mm):");
+							String time = kb.next();
 
-					System.out.println("Here are the list of diagnostic center:");
-					System.out.println(dc.getCenterList());
-												
-					System.out.println("enter the diagnostic center name:");
-					String centername=kb.next();
-					
-					System.out.println("here are the list of test the "+centername+" center provides:");
-					System.out.println(td.getTestList());
-					
-					System.out.println("enter the test name from the above options");
-					System.out.println("Remember you can't choose more than one test at a time!!\n");
-				
-					String testname=kb.next();
-					ai.makeAppointment(usr,centername,testname,dc.getCenterList(),td.getTestList(),date1);
+							ai.makeAppointment(usr,centername,testname,dc.getCenterList(),td.getTestList(),date1,time);
 
-			System.out.println("your form is submitted");
-			}
-			
-			
-			if(op==2)
-			{
-				System.out.println("provide your appointment details:");
-			}
-			
+					System.out.println("your form is submitted");
 					}
-
-			else {
-						System.out.println("Please fill correct username and password.....");
+					
+					
+					if(op==2)
+					{
+						System.out.println("provide your appointment details:");
 					}
+					
+			}			
+			else 
+				System.out.println("Please fill correct username and password....");
 			
 		}	
 		}
-			}
+			}	
 			else
 				System.out.println("Choose correct option...");	
 			}
