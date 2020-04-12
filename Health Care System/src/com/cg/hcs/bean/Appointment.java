@@ -7,5 +7,4 @@ public class Appointment {
 	DateTimeFormatter date;
 	boolean approved;
 	
-	
 }

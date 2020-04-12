@@ -16,6 +16,7 @@ public class MainDemo {
 		User usr=new User();
 		Admin adm=new Admin();
 		ServiceImplementation s=new ServiceImplementation();
+		CustomerInterfaceImpl c=new CustomerInterfaceImpl();
 		AppointmentInterfaceImplementation ai=new AppointmentInterfaceImplementation();
 		CustomerDaoImpl cd=new CustomerDaoImpl();
 		TestDaoImpl td=new TestDaoImpl();
@@ -25,7 +26,7 @@ public class MainDemo {
 		
 		while(true)
 		{
-			System.out.println("Log in as:\n1.Admin\n2.Customer");
+			System.out.println("Log in as:\n1.Admin \n 2.Customer");
 			int number= kb.nextInt();
 			if(number==1)
 			{
@@ -124,11 +125,14 @@ public class MainDemo {
 								
 							case 4:System.out.println("Enter the Center Id to remove the test: ");
 						       String centerId=kb.next();
-						       s.removeCenter(centerId, dc.getCenterList());
-						       System.out.println("After removing the center list is: ");
-						       for(DiagnosticCenter d : dc.getCenterList()) {
-									System.out.println(d.centerId+" "+d.centerName);
-								}
+						       if(s.removeCenter(centerId, dc.getCenterList())) {
+							       System.out.println("After removing the center list is: ");
+							       for(DiagnosticCenter d : dc.getCenterList()) {
+										System.out.println(d.centerId+" "+d.centerName);
+									}
+						       }
+						       else
+						    	   System.out.println("Diagnostic center does not exist...");
 								break;
 								
 							case 5:System.out.println("Enter the diagnostic center id from which you want to remove test: ");
@@ -179,7 +183,7 @@ public class MainDemo {
 			{
 				while(true)
 				 {
-				System.out.println("Press 1 for REGISTER\nPress 2 for LOGIN");
+				System.out.println("Press 1 for REGISTER \n Press 2 for LOGIN");
 				int opt=kb.nextInt();
 				
 		if(opt==1)
@@ -247,7 +251,7 @@ public class MainDemo {
 				System.out.println("Welcome to health care :) !!");
 				User user1=new User(firstName,lastName,"Customer",emailid,Long.parseLong(contactNo),password);
 				cd.addCustomer(user1);
-				
+				  
 				String UserName=firstName.substring(0,3)+lastName.substring(0,4);
 				System.out.println("Your Username is "+UserName);
 				String userId=usr.getUserId();
@@ -262,7 +266,7 @@ public class MainDemo {
 			System.out.println("Enter your password:");
 			String pass=kb.next();
 			
-			s.Register(cd.getCustomerList(), pass);
+			c.Register(cd.getCustomerList(), pass);
 			if(cd.getCustomerList().contains(Id)&&pass.contentEquals(usr.getUserPassword())) {
 					System.out.println("Congratulations, you successfully logged in !!");
 					System.out.println("enter 1 for making an appointment\n enter 2 for checking your appointment status:");

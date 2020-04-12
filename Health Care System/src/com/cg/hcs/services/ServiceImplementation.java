@@ -10,35 +10,15 @@ public class ServiceImplementation implements ServiceInterface {
 	}
 	
 	@Override
-	public void removeCenter(String centerId,List<DiagnosticCenter>centerArray) {
+	public boolean removeCenter(String centerId,List<DiagnosticCenter>centerArray) {
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
 			if((center.centerId).equals(centerId)) {
-				System.out.println("Diagnostic Center to be removed is: "+center.centerId+"->"+center.centerName);
 				centerArray.remove(i);
+				return true;
 			}
 		}
-	}
-	
-	@Override
-	public boolean approveAppointment() {
-		return true;
-	}
-	
-	@Override
-	public void Register(List<User> customer, String password)
-	{
-	for(int i=0;i<customer.size();i++) {
-		User usr=customer.get(i);
-	     if (usr.getUserPassword().equals(password)) 
-	        {
-	            System.out.println("Welcome!!!");
-	        }
-	     else
-	     {
-	    	 System.out.println("your account doesn't exists please register first");
-	     }
-	    } 
+		return false;
 	}
 	
 	@Override
@@ -46,9 +26,7 @@ public class ServiceImplementation implements ServiceInterface {
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
 			if((center.getCenterId()).equals(diagnostic))
-			{
 				return true;
-			}
 		}
 		return false;
 	}
