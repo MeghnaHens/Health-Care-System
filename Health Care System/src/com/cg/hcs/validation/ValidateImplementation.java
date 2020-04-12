@@ -19,5 +19,11 @@ public class ValidateImplementation{
 		if(!centerId.matches(pattern))
 			throw new DiagnosticCenterIdException();
 	}
+	
+	public static void optionChosenValidate(String option) throws WrongOptionChosenException{
+		String pattern="[1-9]{1}";
+		if(!option.matches(pattern))
+			throw new WrongOptionChosenException();
+	}
 }
  

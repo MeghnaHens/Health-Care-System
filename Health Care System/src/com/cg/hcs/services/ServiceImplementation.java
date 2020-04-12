@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.cg.hcs.bean.*;
 public class ServiceImplementation implements ServiceInterface {
+	
 	@Override
 	public void addCenter(String centerName,List<Test>testArray,List<DiagnosticCenter>centerArray) {
 		DiagnosticCenter d= new DiagnosticCenter(centerName,testArray);
@@ -11,9 +12,11 @@ public class ServiceImplementation implements ServiceInterface {
 	
 	@Override
 	public boolean removeCenter(String centerId,List<DiagnosticCenter>centerArray) {
-		for(int i=0;i<centerArray.size();i++) {
+		for(int i=0;i<centerArray.size();i++) 
+		{
 			DiagnosticCenter center=centerArray.get(i);
-			if((center.centerId).equals(centerId)) {
+			if((center.centerId).equals(centerId)) 
+			{
 				centerArray.remove(i);
 				return true;
 			}
@@ -58,15 +61,16 @@ public class ServiceImplementation implements ServiceInterface {
 	public void removeTestFromCenter(List<DiagnosticCenter> centerArray,String diagnostic,String testName) {
 		for(int i=0;i<centerArray.size();i++) {
 			DiagnosticCenter center=centerArray.get(i);
-			if((center.getCenterId()).equals(diagnostic))
-			{
-				for(int j=0;j<center.getListOfTests().size();j++) {
-					Test t=center.getListOfTests().get(j);
-					if(t.getTestName().equalsIgnoreCase(testName)) {
-						center.getListOfTests().remove(t);
-					}
-		    }
+				if((center.getCenterId()).equals(diagnostic))
+				{
+					for(int j=0;j<center.getListOfTests().size();j++) {
+						Test t=center.getListOfTests().get(j);
+						if(t.getTestName().equalsIgnoreCase(testName)) 
+						{
+							center.getListOfTests().remove(t);
+						}
+			    }
 		   }
-	  }
+	   }
 	}
 }

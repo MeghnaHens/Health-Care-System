@@ -12,13 +12,11 @@ public class TestDaoImpl extends TestDao{
 		Test t1=new Test("Blood Test");
 		Test t2=new Test("X-Ray");
 		Test t3=new Test("Urine Test");
-		Test t4=new Test("Blood Sugar Test");
-		Test t5=new Test("TSH test");
+		Test t4=new Test("TSH test");
 		TestDaoImpl.testArray.add(t1);
 		TestDaoImpl.testArray.add(t2);
 		TestDaoImpl.testArray.add(t3);			
 		TestDaoImpl.testArray.add(t4);
-		TestDaoImpl.testArray.add(t5);	
 	}	
 	@Override
 	public List<Test> getTestList(){

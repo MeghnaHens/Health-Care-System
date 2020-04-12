@@ -11,10 +11,10 @@ public class AdminDaoImpl extends AdminDao{
 	DiagnosticCenterDaoImpl dc=new DiagnosticCenterDaoImpl();
 	List<Admin> admin=new ArrayList<Admin>();
 	HashMap<Admin, String> adminHash = new HashMap<>();
-	Admin a1=new Admin("Meghna","Hens","Admin","meghna@gmail.com",8967330644L,"Meghna@1998",dc.getCenterList());
-	Admin a2=new Admin("Neha","Biswakarma","Admin","neha@gmail.com",8013805556L,"Neha@1996",dc.getCenterList());
-	Admin a3=new Admin("Karishma","Upadhyay","Admin","karishma@gmail.com",8109993685L,"Karisma@1998",dc.getCenterList());
-	Admin a4=new Admin("Nikhil","Gupta","Admin","nikhil@gmail.com",9768519113L,"Nikhil@1998",dc.getCenterList());
+	Admin a1=new Admin("Meghna","Hens","Female","Admin","meghna@gmail.com",8967330644L,"Meghna@1998",dc.getCenterList());
+	Admin a2=new Admin("Neha","Biswakarma","Female","Admin","neha@gmail.com",8013805556L,"Neha@1996",dc.getCenterList());
+	Admin a3=new Admin("Karishma","Upadhyay","Female","Admin","karishma@gmail.com",8109993685L,"Karisma@1998",dc.getCenterList());
+	Admin a4=new Admin("Nikhil","Gupta","Male","Admin","nikhil@gmail.com",9768519113L,"Nikhil@1998",dc.getCenterList());
 	
 	@Override
 	public void addAdmin() {
