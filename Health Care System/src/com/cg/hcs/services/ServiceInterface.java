@@ -11,5 +11,5 @@ public interface ServiceInterface {
 	public abstract void removeTestFromCenter(List<DiagnosticCenter>centerArray,String diagnostic,String testName);
 	public abstract boolean isDiagnosticCenterPresent(String diagnostic,List<DiagnosticCenter> centerArray);
 	public abstract void addTestInCenter(List<DiagnosticCenter>centerArray,String diagnostic,String testName);
-	public abstract boolean login(Admin a,String id,String pass,List<Admin> adminList,HashMap<Admin,String> adminHash);
+	public abstract boolean login(Admin a,String pass,List<Admin> adminList,HashMap<Admin,String> adminHash);
 }

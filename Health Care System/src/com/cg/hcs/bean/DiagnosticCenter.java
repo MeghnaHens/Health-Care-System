@@ -17,6 +17,9 @@ public class DiagnosticCenter {
 	public String getCenterId() {
 		return centerId;
 	}
+	public String getCenterName() {
+		return this.centerName;
+	}
 	public List<Test> getListOfTests() {
 		return listOfTests;
 	}

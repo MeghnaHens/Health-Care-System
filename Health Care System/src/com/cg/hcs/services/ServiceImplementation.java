@@ -35,7 +35,7 @@ public class ServiceImplementation implements ServiceInterface {
 	}
 	
 	@Override
-	public boolean login(Admin adm,String id,String pass,List<Admin> adminList,HashMap<Admin,String> adminHash) {  
+	public boolean login(Admin adm,String pass,List<Admin> adminList,HashMap<Admin,String> adminHash) {  
 		if(adminHash.containsValue(pass)) {
 			return true;
 		}

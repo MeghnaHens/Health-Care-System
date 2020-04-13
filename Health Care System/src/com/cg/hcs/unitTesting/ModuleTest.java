@@ -16,13 +16,4 @@ public class ModuleTest {
 		int actual=cd.getCenterList().size();
 		Assert.assertEquals(expected, actual);
 	}
-	
-	@Test
-	public void removeDiagnosticCenterTest() {
-		String centerId="D4";
-		int expected=cd.getCenterList().size()-1;
-		s.removeCenter(centerId,cd.getCenterList());
-		int actual=cd.getCenterList().size();
-		Assert.assertEquals(expected, actual);
-	}
 }

@@ -7,14 +7,14 @@ public class CustomerValidation {
 	{
 			String pattern="[A-Z]{1}[a-z]{2,10}";
 			if(!firstname.matches(pattern))
-				throw new FirstNameException("first letter should be capital!");
+				throw new FirstNameException("First letter should be capital!");
 	}
 	
 		public static void lnameValidation(String lastname) throws LastNameException
 		{
 				String pattern="[A-Z]{1}[a-z]{2,20}";
 				if(!lastname.matches(pattern))
-					throw new LastNameException("first letter should be capital!");
+					throw new LastNameException("First letter should be capital!");
 		}
 		
 	

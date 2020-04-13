@@ -7,19 +7,21 @@ import com.cg.hcs.bean.User;
 public class CustomerInterfaceImpl implements CustomerInterface {
 
 	@Override
-	public void Register(List<User> customer, String password)
+	public boolean Register(List<User> customer, String password,String username)
 	{
 	for(int i=0;i<customer.size();i++) {
 		User usr=customer.get(i);
-	     if (usr.getUserPassword().equals(password)) 
+	     if (usr.getUserPassword().equals(password) && usr.getUsername().equals(username)) 
 	        {
-	            System.out.println("Welcome!!!");
+	    	 	return true;
+	            //System.out.println("Welcome!!!");
 	        }
-	     else
+	   /*  else
 	     {
-	    	 System.out.println("your account doesn't exists please register first");
-	     }
-	    } 
+	    	 //System.out.println("your account doesn't exists please register first");
+	     }*/
+	    }
+	return false;
 	}
 
 	@Override

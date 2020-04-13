@@ -3,7 +3,9 @@ import java.util.List;
 
 public class User {
 	static int id=1;
-	public String userId="Ab";
+	public String userId="HCSUSER";
+	public String username;
+	
 	List<DiagnosticCenter> centerList;
 	String lastName,firstName,userPassword,userRole,emailId;
 	long contactNumber;
@@ -12,6 +14,8 @@ public class User {
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.userId=this.userId+(id++);
+		this.username=firstName.substring(0,3)+lastName.substring(0,3);
 		this.userRole = userRole;
 		this.emailId=emailId;
 		this.contactNumber = contactNumber;
@@ -20,8 +24,8 @@ public class User {
 	}
 	public User() {
 		
+
 	}
-	
 	public static void setId() {
 		id = id++;
 	}
@@ -61,5 +65,11 @@ public class User {
 	}
 	public void setContactNumber(long contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
