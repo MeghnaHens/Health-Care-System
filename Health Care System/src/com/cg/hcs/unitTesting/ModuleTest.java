@@ -1,5 +1,7 @@
 package com.cg.hcs.unitTesting;
 import org.junit.*;
+
+import com.cg.hcs.bean.Admin;
 import com.cg.hcs.dao.*;
 import com.cg.hcs.services.*;
 public class ModuleTest {
@@ -16,4 +18,6 @@ public class ModuleTest {
 		int actual=cd.getCenterList().size();
 		Assert.assertEquals(expected, actual);
 	}
+	
+	
 }

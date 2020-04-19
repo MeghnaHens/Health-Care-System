@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.*;
 
 import com.cg.hcs.bean.*;
-import com.cg.hcs.customerException.*;
+import com.cg.hcs.customerException.*; 
 import com.cg.hcs.dao.*;
 import com.cg.hcs.services.*;
 import com.cg.hcs.validation.*;
@@ -43,7 +43,7 @@ public class MainDemo {
 						ValidateImplementation.optionChosenValidate(number);
 					}
 					catch(WrongOptionChosenException e) {
-						System.out.println(e);
+						//System.out.println(e);
 						break;
 					}	
 				if(Integer.parseInt(number)==1)

@@ -1,7 +1,14 @@
 package com.cg.hcs.exception;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class DiagnosticCenterIdException extends Exception{
+	
+	static Logger logger=LogManager.getLogger(DiagnosticCenterIdException.class);
 	public DiagnosticCenterIdException() {
-		System.out.println("Incorrect Diagnostic center Id..!");
+		
+		logger.error("Incorrect Diagnostic center Id..!");
+		//System.out.println("Incorrect Diagnostic center Id..!");
 	}
 }
