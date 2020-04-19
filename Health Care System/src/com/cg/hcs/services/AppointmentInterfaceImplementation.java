@@ -18,28 +18,20 @@ public class AppointmentInterfaceImplementation implements AppointmentInterface{
 			DiagnosticCenter center=centerArray.get(i);
 			if((center.centerName).equals(centerName)) {
 				System.out.println("Diagnostic Center  is: "+center.centerId+"->"+center.centerName);
-				for(int j=0;j<center.getListOfTests().size();j++) {
-					Test test=testArray.get(j);
-					if((test.testName).equals(testName)) {
-						System.out.println("Test to be done is: "+test.testId+"->"+test.testName);
-						
-					}
-				}
 			}
 		}
-	/*	for(int i=0;i<testArray.size();i++) {
+		for(int i=0;i<testArray.size();i++) {
 			Test test=testArray.get(i);
 			if((test.testName).equals(testName)) {
 				System.out.println("Test to be done is: "+test.testId+"->"+test.testName);
 				
 			}
-		}*/
-		
-		try {
+		}
+			try {
 			 	
-				SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat sdf=new SimpleDateFormat("mm-dd-yyyy");
 				sdf.parse(date);
-				SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm");
+				SimpleDateFormat sdf1=new SimpleDateFormat("hh:mm");
 				sdf1.parse(time);
 	       System.out.println("you booked on"+date+" at "+time);
 		}
@@ -49,7 +41,22 @@ public class AppointmentInterfaceImplementation implements AppointmentInterface{
 	}
 	
 }
-	public void showAppointment() {
+	public void showAppointment(List<User> customer,List<Appointment> appointlist,String userid) {
+		for(int i=0;i<customer.size();i++) {
+			User usr=customer.get(i);
+			if(usr.getUserId().contentEquals(userid))
+			{
+			   
+			    System.out.println("your appointment is pending");
+			  
+			}else
+		     {
+		    	 System.out.println("you entered a wrong user Id");
+		     }	
 		
+	}
+	}
+	public boolean approveAppointment() {
+	return false;
 	}
 }

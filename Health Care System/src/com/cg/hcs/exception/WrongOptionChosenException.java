@@ -10,6 +10,5 @@ public class WrongOptionChosenException extends Exception{
 	public WrongOptionChosenException() {
 		
 		logger.error("Choose Valid option..! ");
-	//	System.out.println("Choose Valid option..!");
 	}
 }

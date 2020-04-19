@@ -5,6 +5,6 @@ import java.util.List;
 import com.cg.hcs.bean.*;
 
 public interface CustomerInterface {
-	public abstract boolean approveAppointment();
-	public abstract boolean Register(List<User> customer, String password,String username);
+	
+	public abstract void Register(List<User> customer,String userName, String password);
 }

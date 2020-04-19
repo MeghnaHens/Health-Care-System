@@ -9,6 +9,5 @@ public class DiagnosticCenterIdException extends Exception{
 	public DiagnosticCenterIdException() {
 		
 		logger.error("Incorrect Diagnostic center Id..!");
-		//System.out.println("Incorrect Diagnostic center Id..!");
 	}
 }

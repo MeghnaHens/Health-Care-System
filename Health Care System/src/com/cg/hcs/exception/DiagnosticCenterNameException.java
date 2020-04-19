@@ -8,6 +8,5 @@ public class DiagnosticCenterNameException extends Exception{
 	public DiagnosticCenterNameException() {
 		
 		logger.error("Diagnostic center name must be in characters only..!");
-	//	System.out.println("Diagnostic center name must be in characters only..!");
 	}
 }
